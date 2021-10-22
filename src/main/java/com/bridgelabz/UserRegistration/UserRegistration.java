@@ -14,6 +14,15 @@ public class UserRegistration {
 class UserRegistrationDetails {
     String firstName;
     String lastName;
+    String emailID;
+
+    public String getEmailID() {
+        return emailID;
+    }
+
+    public void setEmailID(String emailID) {
+        this.emailID = emailID;
+    }
 
     public String getLastName() {
         return lastName;
@@ -22,6 +31,7 @@ class UserRegistrationDetails {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
     public String getFirstName() {
         return firstName;
     }
@@ -49,6 +59,13 @@ class UserRegistrationImpl {
         return matcher.matches();
     }
 
+    public boolean validateEmailID(String emailID) {
+        String regex = "^([a-zA-z0-9-_+.]+)@([a-z0-9-]+)\\.([a-z,]{2,4})((\\.[a-z]{2,4})?)$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(emailID);
+        return matcher.matches();
+    }
+
     public void validateUserDetails() {
         Scanner scanner = new Scanner(System.in);
         UserRegistrationDetails userRegistrationDetails = new UserRegistrationDetails();
@@ -60,7 +77,7 @@ class UserRegistrationImpl {
         boolean flag = userRegistration.validateName(userRegistrationDetails.getFirstName());
         if (flag)
             System.out.print("");
-         else {
+        else {
             System.out.println("Invalid input");
         }
 
@@ -69,9 +86,19 @@ class UserRegistrationImpl {
 
         boolean flagL = userRegistration.validateName(userRegistrationDetails.getLastName());
         if (flagL) {
-            System.out.println("Valid input");
+            System.out.print("");
         } else {
             System.out.println("Invalid input");
+        }
+
+        System.out.print("Enter your Email ID: ");
+        userRegistrationDetails.setEmailID(scanner.next());
+
+        boolean flagMail = userRegistration.validateEmailID(userRegistrationDetails.getEmailID());
+        if (flagMail) {
+            System.out.println("Valid E-mail input");
+        } else {
+            System.out.println("Invalid E-mail input");
         }
     }
 }
