@@ -88,7 +88,7 @@ class UserRegistrationImpl {
         return matcher.matches();
     }
     public boolean validatePassword(String password) {
-        String regex = "^[a-zA-z0-9]{8,}$";
+        String regex = ("^(?=.*[a-z])(?=.*[A-Z]).{8,}$");
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
@@ -126,16 +126,16 @@ class UserRegistrationImpl {
         else
             System.out.println("Invalid E-mail input");
 
-        System.out.print("Enter your mobile number: ");
+        System.out.print("Enter your mobile number: 91 ");
         userRegistrationDetails.setMobileNumber(scanner.next());
 
         boolean flagMobileNumber = userRegistration.validateMobileNumber(userRegistrationDetails.getMobileNumber());
         if (flagMobileNumber)
-            System.out.println("Valid mobile number");
+            System.out.print("");
         else
             System.out.println("Invalid mobile number");
 
-        System.out.println("Enter your password: ");
+        System.out.print("Enter your password: ");
         userRegistrationDetails.setPassword(scanner.next());
 
         boolean flagPassword = userRegistration.validatePassword(userRegistrationDetails.getPassword());
