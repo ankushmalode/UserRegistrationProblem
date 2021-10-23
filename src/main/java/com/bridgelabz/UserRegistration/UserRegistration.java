@@ -16,7 +16,15 @@ class UserRegistrationDetails {
     String lastName;
     String emailID;
     String mobileNumber;
+    String password;
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
     public String getMobileNumber() {
         return mobileNumber;
     }
@@ -79,6 +87,12 @@ class UserRegistrationImpl {
         Matcher matcher = pattern.matcher(mobileNumber);
         return matcher.matches();
     }
+    public boolean validatePassword(String password) {
+        String regex = "^[a-zA-z0-9]{8,}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
 
     public void validateUserDetails() {
         Scanner scanner = new Scanner(System.in);
@@ -120,5 +134,14 @@ class UserRegistrationImpl {
             System.out.println("Valid mobile number");
         else
             System.out.println("Invalid mobile number");
+
+        System.out.println("Enter your password: ");
+        userRegistrationDetails.setPassword(scanner.next());
+
+        boolean flagPassword = userRegistration.validatePassword(userRegistrationDetails.getPassword());
+        if (flagPassword)
+            System.out.println("Password meets condition");
+        else
+            System.out.println("Password don't meet condition");
     }
 }
