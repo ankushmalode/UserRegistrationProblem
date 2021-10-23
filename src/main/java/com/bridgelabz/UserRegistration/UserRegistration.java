@@ -15,6 +15,15 @@ class UserRegistrationDetails {
     String firstName;
     String lastName;
     String emailID;
+    String mobileNumber;
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
 
     public String getEmailID() {
         return emailID;
@@ -52,9 +61,8 @@ class UserRegistrationImpl {
         String regexName = "^[A-Z]{1}[a-z]{2,}$";
         Pattern pattern = Pattern.compile(regexName);
 
-        if (firstName.isEmpty()) {
+        if (firstName.isEmpty())
             return false;
-        }
         Matcher matcher = pattern.matcher(firstName);
         return matcher.matches();
     }
@@ -63,6 +71,12 @@ class UserRegistrationImpl {
         String regex = "^([a-zA-z0-9-_+.]+)@([a-z0-9-]+)\\.([a-z,]{2,4})((\\.[a-z]{2,4})?)$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(emailID);
+        return matcher.matches();
+    }
+    public boolean validateMobileNumber(String mobileNumber) {
+        String regex = "^[0-9]{10}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(mobileNumber);
         return matcher.matches();
     }
 
@@ -77,28 +91,34 @@ class UserRegistrationImpl {
         boolean flag = userRegistration.validateName(userRegistrationDetails.getFirstName());
         if (flag)
             System.out.print("");
-        else {
+        else
             System.out.println("Invalid input");
-        }
 
         System.out.print("Enter your last name: ");
         userRegistrationDetails.setLastName(scanner.next());
 
         boolean flagL = userRegistration.validateName(userRegistrationDetails.getLastName());
-        if (flagL) {
+        if (flagL)
             System.out.print("");
-        } else {
+        else
             System.out.println("Invalid input");
-        }
 
         System.out.print("Enter your Email ID: ");
         userRegistrationDetails.setEmailID(scanner.next());
 
         boolean flagMail = userRegistration.validateEmailID(userRegistrationDetails.getEmailID());
-        if (flagMail) {
-            System.out.println("Valid E-mail input");
-        } else {
+        if (flagMail)
+            System.out.print("");
+        else
             System.out.println("Invalid E-mail input");
-        }
+
+        System.out.print("Enter your mobile number: ");
+        userRegistrationDetails.setMobileNumber(scanner.next());
+
+        boolean flagMobileNumber = userRegistration.validateMobileNumber(userRegistrationDetails.getMobileNumber());
+        if (flagMobileNumber)
+            System.out.println("Valid mobile number");
+        else
+            System.out.println("Invalid mobile number");
     }
 }
